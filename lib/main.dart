@@ -1,70 +1,66 @@
 import 'package:flutter/material.dart';
+import 'quote.dart';
+import 'quote_card.dart';
 
-void main() {
-  runApp(MaterialApp(
-    home: Scaffold(
-      appBar: AppBar(
-        title: const Text('My first app'),
-        centerTitle: true,
-        backgroundColor: Colors.amber[200],
-      ),
-      body: Container(
-        padding: EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          spacing: 20,
-          children: [
-            Container(
-              padding: EdgeInsets.all(30.0),
-              color: Colors.cyan[100],
-              child: Image.network(
-                'https://picsum.photos/200',
-                fit: BoxFit.fill
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.all(20.0),
-              color: Colors.pink[100],
-              child: Text(
-                'What image is that?'
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.all(20.0),
-              color: Colors.amber[100],
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Column(
-                    children: [
-                      Icon(
-                        Icons.food_bank,
-                      ),
-                      Text('Food')
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Icon(
-                        Icons.umbrella,
-                      ),
-                      Text('Scenery')
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Icon(
-                        Icons.people,
-                      ),
-                      Text('People')
-                    ],
-                  )
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
+void main() => runApp(MaterialApp(home: QuoteList()));
+
+class QuoteList extends StatefulWidget {
+  const QuoteList({super.key});
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _QuoteListState createState() => _QuoteListState();
+}
+
+class _QuoteListState extends State<QuoteList> {
+  List<Quote> quotes = [
+    Quote(
+      author: 'Oscar Wilde',
+      text: 'Be yourself; everyone else is already taken',
     ),
-  ));
+    Quote(
+      author: 'Oscar Wilde',
+      text: 'I have nothing to declare except my genius',
+    ),
+    Quote(
+      author: 'Oscar Wilde',
+      text: 'The truth is rarely pure and never simple',
+    ),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.grey[200],
+      appBar: AppBar(
+        title: Text('Awesome Quotes'),
+        centerTitle: true,
+        backgroundColor: Colors.redAccent,
+      ),
+      body: Column(
+        children:
+            quotes
+                .map(
+                  (quote) => QuoteCard(
+                    quote: quote,
+                    delete: () {
+                      setState(() {
+                        quotes.remove(quote);
+                      });
+                    },
+                  ),
+                )
+                .toList(),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.redAccent,
+        onPressed: () {
+          setState(() {
+            quotes.add(Quote(text: 'New quote', author: 'New author'));
+          });
+        },
+        child: Icon(Icons.add),
+      ),
+    );
+  }
 }
