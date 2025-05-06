@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:learn_flutter/firebase_options.dart';
 import 'package:learn_flutter/pages/home_page.dart';
+import 'package:learn_flutter/pages/login_page.dart';
+import 'package:learn_flutter/pages/register_page.dart';
 
 Future<void> main() async {
   await dotenv.load(fileName: '.env');
@@ -24,7 +26,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlue),
       ),
-      home: const HomePage(),
+      initialRoute: 'login',
+      routes: {
+        'login': (context) => const LoginPage(),
+        'register': (context) => const RegisterPage(),
+        'home': (context) => const MyHomePage(),
+      },
     );
   }
 }
