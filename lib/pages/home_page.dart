@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:learn_flutter/pages/account_page.dart';
 import 'package:learn_flutter/pages/notes_page.dart';
+import 'package:learn_flutter/pages/notification_page.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -22,6 +23,8 @@ class _MyHomePageState extends State<MyHomePage> {
         page = NotesPage();
       case 1:
         page = AccountPage();
+      case 2:
+        page = NotificationPage();
       default:
         throw UnimplementedError('no widget for $selectedIndex');
     }
@@ -52,6 +55,10 @@ class _MyHomePageState extends State<MyHomePage> {
                         icon: Icon(Icons.person),
                         label: 'Account',
                       ),
+                      BottomNavigationBarItem(
+                        icon: Icon(Icons.notifications),
+                        label: 'Notifications',
+                      ),
                     ],
                     currentIndex: selectedIndex,
                     onTap: (value) {
@@ -77,6 +84,10 @@ class _MyHomePageState extends State<MyHomePage> {
                       NavigationRailDestination(
                         icon: Icon(Icons.favorite),
                         label: Text('Favorites'),
+                      ),
+                      NavigationRailDestination(
+                        icon: Icon(Icons.notifications),
+                        label: Text('Notifications'),
                       ),
                     ],
                     selectedIndex: selectedIndex,
